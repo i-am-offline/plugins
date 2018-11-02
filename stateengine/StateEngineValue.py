@@ -163,10 +163,8 @@ class SeValue(StateEngineTools.SeItemChild):
         if value is not None and self.__cast_func is not None:
             try:
                 if type(value) == list:
-                    # noinspection PyCallingNonCallable
                     value = [self.__cast_func(element) for element in value]
                 else:
-                    # noinspection PyCallingNonCallable
                     value = self.__cast_func(value)
             except Exception as ex:
                 self._log_info("Problem casting value '{0}': {1}.", value, str(ex))
@@ -177,11 +175,9 @@ class SeValue(StateEngineTools.SeItemChild):
     # Determine value by executing eval-function
     def __get_eval(self):
         if isinstance(self.__eval, str):
-            # noinspection PyUnusedLocal
-            sh = self._sh
+            sh = self._sh  # @UnusedVariable
             if "stateengine_eval" in self.__eval:
-                # noinspection PyUnusedLocal
-                stateengine_eval = StateEngineEval.SeEval(self._abitem)
+                stateengine_eval = StateEngineEval.SeEval(self._abitem)  # @UnusedVariable
             try:
                 value = eval(self.__eval)
             except Exception as ex:
@@ -189,7 +185,6 @@ class SeValue(StateEngineTools.SeItemChild):
                 return None
         else:
             try:
-                # noinspection PyCallingNonCallable
                 value = self.__eval()
             except Exception as ex:
                 self._log_info("Problem calling '{0}': {1}.", StateEngineTools.get_eval_name(self.__eval), str(ex))
@@ -200,7 +195,6 @@ class SeValue(StateEngineTools.SeItemChild):
     # Determine value from item
     def __get_from_item(self):
         try:
-            # noinspection PyCallingNonCallable
             value = self.__item()
         except Exception as ex:
             self._log_info("Problem while reading item '{0}': {1}.", self.__item.id(), str(ex))

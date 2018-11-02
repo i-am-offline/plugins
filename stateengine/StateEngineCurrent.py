@@ -73,7 +73,6 @@ class SeCurrent:
         return self.__month
 
     # Return random number between 0 and 100
-    # noinspection PyMethodMayBeStatic
     def get_random(self):
         return randint(0, 100)
 

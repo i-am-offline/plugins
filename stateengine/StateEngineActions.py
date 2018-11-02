@@ -209,7 +209,6 @@ class SeActions(StateEngineTools.SeItemChild):
             if parameter['order'] is not None:
                 self.__actions[name].update_order(parameter['order'])
 
-    # noinspection PyMethodMayBeStatic
     def __raise_missing_parameter_error(self, parameter, param_name):
         if param_name not in parameter or parameter[param_name] is None:
             raise ValueError("Attribute 'se_action_{0}: Parameter '{1}' must be set for function '{2}'!".format(parameter['action'], param_name, parameter['function']))
@@ -234,7 +233,7 @@ class SeActions(StateEngineTools.SeItemChild):
         if additional_actions is not None:
             for name in additional_actions.__actions:
                 actions.append((additional_actions.__actions[name].get_order(), additional_actions.__actions[name]))
-        for order, action in sorted(actions, key=lambda x: x[0]):
+        for order, action in sorted(actions, key=lambda x: x[0]):  # @UnusedVariable
             action.execute(is_repeat, allow_item_repeat)
 
     # log all actions
@@ -242,8 +241,7 @@ class SeActions(StateEngineTools.SeItemChild):
         actions = []
         for name in self.__actions:
             actions.append((self.__actions[name].get_order(), self.__actions[name]))
-        for order, action in sorted(actions, key=lambda x: x[0]):
-            # noinspection PyProtectedMember
+        for order, action in sorted(actions, key=lambda x: x[0]):  # @UnusedVariable
             self._log_info("Action '{0}':", action._name)
             self._log_increase_indent()
             action.write_to_logger()

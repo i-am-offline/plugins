@@ -48,7 +48,6 @@ def get_last_part_of_item_id(item):
 # Taken from smarthome.py/lib/item.py
 # value: value to cast
 # returns: value as num or float
-# noinspection PyBroadException
 def cast_num(value):
     if isinstance(value, float):
         return value

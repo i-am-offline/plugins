@@ -28,7 +28,6 @@ from . import StateEngineValue
 
 
 # Class representing a blind item
-# noinspection PyCallingNonCallable
 class SeItem:
     # return item id
     @property
@@ -124,7 +123,6 @@ class SeItem:
 
     # Find the state, matching the current conditions and perform the actions of this state
     # caller: Caller that triggered the update
-    # noinspection PyCallingNonCallable,PyUnusedLocal
     def update_state(self, item, caller=None, source=None, dest=None):
         if self.__update_in_progress or not self.__startup_delay_over:
             return
@@ -223,12 +221,10 @@ class SeItem:
     def __laststate_set(self, new_state):
         self.__laststate_internal_id = new_state.id
         if self.__laststate_item_id is not None:
-            # noinspection PyCallingNonCallable
             self.__laststate_item_id(self.__laststate_internal_id)
 
         self.__laststate_internal_name = new_state.text
         if self.__laststate_item_name is not None:
-            # noinspection PyCallingNonCallable
             self.__laststate_item_name(self.__laststate_internal_name)
 
     # get last state object based on laststate_id
@@ -248,7 +244,6 @@ class SeItem:
         self.__item.add_method_trigger(self.update_state)
 
     # Check item settings and update if required
-    # noinspection PyProtectedMember
     def __check_item_config(self):
         # set "enforce updates" for item
         self.__item._enforce_updates = True
@@ -293,12 +288,10 @@ class SeItem:
 
     # get triggers in readable format
     def __verbose_triggers(self):
-        # noinspection PyProtectedMember
         if not self.__item._trigger:
             return "Inactive"
 
         triggers = ""
-        # noinspection PyProtectedMember
         for trigger in self.__item._trigger:
             if triggers != "":
                 triggers += ", "
@@ -311,7 +304,6 @@ class SeItem:
         cycles = ""
         crons = ""
 
-        # noinspection PyProtectedMember
         job = self.__sh.scheduler._scheduler.get(self.__item.id)
         if job is not None:
             if "cycle" in job and job["cycle"] is not None:
@@ -429,7 +421,6 @@ class SeItem:
     # endregion
 
     # callback function that is called after the startup delay
-    # noinspection PyUnusedLocal
     def __startup_delay_callback(self, item, caller=None, source=None, dest=None):
         self.__startup_delay_over = True
         self.update_state(item, "Startup Delay", source, dest)

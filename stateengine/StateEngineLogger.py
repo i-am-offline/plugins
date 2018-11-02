@@ -155,7 +155,6 @@ class SeLogger:
     # log warning (always to main smarthome.py log)
     # text: text to log
     # *args: parameters for text
-    # noinspection PyMethodMayBeStatic
     def warning(self, text, *args):
         self.log(1, "WARNING: " + text, *args)
         self.logger.warning(text.format(*args))
@@ -163,7 +162,6 @@ class SeLogger:
     # log error (always to main smarthome.py log)
     # text: text to log
     # *args: parameters for text
-    # noinspection PyMethodMayBeStatic
     def error(self, text, *args):
         self.log(1, "ERROR: " + text, *args)
         self.logger.error(text.format(*args))
@@ -172,7 +170,6 @@ class SeLogger:
     # msg: message to log
     # *args: arguments for message
     # **kwargs: known arguments for message
-    # noinspection PyMethodMayBeStatic
     def exception(self, msg, *args, **kwargs):
         self.log(1, "EXCEPTION: " + str(msg), *args)
         self.logger.exception(msg, *args, **kwargs)
@@ -181,7 +178,6 @@ class SeLogger:
 class SeLoggerDummy:
     # Constructor
     # item: item for which the detailed log is (used as part of file name)
-    # noinspection PyUnusedLocal
     def __init__(self, item=None):
         self.logger = logging.getLogger(__name__)
 
@@ -225,14 +221,12 @@ class SeLoggerDummy:
     # log warning (always to main smarthome.py log)
     # text: text to log
     # *args: parameters for text
-    # noinspection PyMethodMayBeStatic
     def warning(self, text, *args):
         self.logger.warning(text.format(*args))
 
     # log error (always to main smarthome.py log)
     # text: text to log
     # *args: parameters for text
-    # noinspection PyMethodMayBeStatic
     def error(self, text, *args):
         self.logger.error(text.format(*args))
 
@@ -240,6 +234,5 @@ class SeLoggerDummy:
     # msg: message to log
     # *args: arguments for message
     # **kwargs: known arguments for message
-    # noinspection PyMethodMayBeStatic
     def exception(self, msg, *args, **kwargs):
         self.logger.exception(msg, *args, **kwargs)

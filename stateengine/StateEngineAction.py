@@ -204,7 +204,6 @@ class SeActionSetItem(SeActionBase):
 
         if not self.__mindelta.is_empty():
             mindelta = self.__mindelta.get()
-            # noinspection PyCallingNonCallable
             delta = float(abs(self.__item() - value))
             if delta < mindelta:
                 text = "{0}: Not setting '{1}' to '{2}' because delta '{3:.2}' is lower than mindelta '{4}'"
@@ -212,7 +211,6 @@ class SeActionSetItem(SeActionBase):
                 return
 
         self._log_debug("{0}: Set '{1}' to '{2}'.{3}", actionname, self.__item.id(), value, repeat_text)
-        # noinspection PyCallingNonCallable
         self.__item(value, caller=self.__caller)
 
 
@@ -322,11 +320,9 @@ class SeActionRun(SeActionBase):
     # Really execute the action
     def _execute(self, actionname: str, repeat_text: str = ""):
         if isinstance(self.__eval, str):
-            # noinspection PyUnusedLocal
-            sh = self._sh
+            sh = self._sh  # @UnusedVariable
             if "stateengine_eval" in self.__eval:
-                # noinspection PyUnusedLocal
-                stateengine_eval = StateEngineEval.SeEval(self._abitem)
+                stateengine_eval = StateEngineEval.SeEval(self._abitem)  # @UnusedVariable
             try:
                 eval(self.__eval)
             except Exception as ex:
@@ -334,7 +330,6 @@ class SeActionRun(SeActionBase):
                 self._log_error(text.format(actionname, StateEngineTools.get_eval_name(self.__eval), str(ex)))
         else:
             try:
-                # noinspection PyCallingNonCallable
                 self.__eval()
             except Exception as ex:
                 text = "{0}: Problem calling '{0}': {1}."
@@ -398,7 +393,6 @@ class SeActionForceItem(SeActionBase):
         return True
 
     # Really execute the action (needs to be implemented in derived classes)
-    # noinspection PyProtectedMember
     def _execute(self, actionname: str, repeat_text: str = ""):
         value = self.__value.get()
         if value is None:
@@ -406,7 +400,6 @@ class SeActionForceItem(SeActionBase):
 
         if not self.__mindelta.is_empty():
             mindelta = self.__mindelta.get()
-            # noinspection PyCallingNonCallable
             delta = float(abs(self.__item() - value))
             if delta < mindelta:
                 text = "{0}: Not setting '{1}' to '{2}' because delta '{3:.2}' is lower than mindelta '{4}'"
@@ -438,7 +431,6 @@ class SeActionForceItem(SeActionBase):
             self._log_debug("{0}: New value differs from old value, no force required.", actionname)
 
         self._log_debug("{0}: Set '{1}' to '{2}'.{3}", actionname, self.__item.id(), value, repeat_text)
-        # noinspection PyCallingNonCallable
         self.__item(value, caller=StateEngineDefaults.plugin_identification)
 
 

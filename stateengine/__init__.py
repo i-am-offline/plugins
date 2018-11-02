@@ -35,8 +35,7 @@ class StateEngine(SmartPlugin):
     PLUGIN_VERSION = '1.4.1'
 
     # Constructor
-    # noinspection PyUnusedLocal,PyMissingConstructor
-    def __init__(self, sh):
+    def __init__(self, sh):  # @UnusedVariable
 
         if '.'.join(VERSION.split('.', 2)[:2]) <= '1.5':
             self.logger = logging.getLogger(__name__)
@@ -80,7 +79,6 @@ class StateEngine(SmartPlugin):
             return
 
     # Parse an item
-    # noinspection PyMethodMayBeStatic
     def parse_item(self, item):
         if "se_manual_include" in item.conf or "se_manual_exclude" in item.conf:
             item._eval = "sh.stateengine_plugin_functions.manual_item_update_eval('" + item.id() + "', caller, source)"
@@ -150,7 +148,7 @@ class StateEngine(SmartPlugin):
         try:
             self.mod_http = Modules.get_instance().get_module('http')   # try/except to handle running in a core version that does not support modules
         except:
-             self.mod_http = None
+            self.mod_http = None
         if self.mod_http == None:
             self.logger.error("Plugin '{}': Not initializing the web interface".format(self.get_shortname()))
             return False
@@ -186,8 +184,8 @@ class StateEngine(SmartPlugin):
 #    Webinterface of the plugin
 # ------------------------------------------
 
-import cherrypy
-from jinja2 import Environment, FileSystemLoader
+import cherrypy  # @UnresolvedImport
+from jinja2 import Environment, FileSystemLoader  # @Reimport
 
 class WebInterface(SmartPluginWebIf):
 
@@ -208,7 +206,7 @@ class WebInterface(SmartPluginWebIf):
 
 
     @cherrypy.expose
-    def index(self, action=None, item_id=None, item_path=None, reload=None, page='index'):
+    def index(self, action=None, item_id=None, item_path=None, reload=None, page='index'):  # @UnusedVariable
         """
         Build index.html for cherrypy
 
@@ -216,7 +214,7 @@ class WebInterface(SmartPluginWebIf):
 
         :return: contents of the template after beeing rendered
         """
-        item = self.plugin.get_sh().return_item(item_path)
+        item = self.plugin.get_sh().return_item(item_path)  # @UnusedVariable
 
         tmpl = self.tplenv.get_template('{}.html'.format(page))
         # add values to be passed to the Jinja2 template eg: tmpl.render(p=self.plugin, interface=interface, ...)

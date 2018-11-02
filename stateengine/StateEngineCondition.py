@@ -335,15 +335,12 @@ class SeCondition(StateEngineTools.SeItemChild):
     # Current value of condition (based on item or eval)
     def __get_current(self):
         if self.__item is not None:
-            # noinspection PyCallingNonCallable
             return self.__item()
         if self.__eval is not None:
             if isinstance(self.__eval, str):
-                # noinspection PyUnusedLocal
-                sh = self._sh
+                sh = self._sh  # @UnusedVariable
                 if "stateengine_eval" in self.__eval:
-                    # noinspection PyUnusedLocal
-                    stateengine_eval = StateEngineEval.SeEval(self._abitem)
+                    stateengine_eval = StateEngineEval.SeEval(self._abitem)  # @UnusedVariable
                 try:
                     value = eval(self.__eval)
                 except Exception as ex:
@@ -352,6 +349,5 @@ class SeCondition(StateEngineTools.SeItemChild):
                 else:
                     return value
             else:
-                # noinspection PyCallingNonCallable
                 return self.__eval()
         raise ValueError("Condition {}: Neither 'item' nor eval given!".format(self.__name))
