@@ -408,17 +408,17 @@ class SeActionForceItem(SeActionBase):
 
         # Set to different value first ("force")
         if self.__item() == value:
-            if self.__item._type == 'bool':
+            if self.__item.property.type == 'bool':
                 self._log_debug("{0}: Set '{1}' to '{2}' (Force)", actionname, self.__item.id(), not value)
                 self.__item(not value, caller=StateEngineDefaults.plugin_identification)
-            elif self.__item._type == 'str':
+            elif self.__item.property.type == 'str':
                 if value != '':
                     self._log_debug("{0}: Set '{1}' to '{2}' (Force)", actionname, self.__item.id(), '')
                     self.__item('', caller=StateEngineDefaults.plugin_identification)
                 else:
                     self._log_debug("{0}: Set '{1}' to '{2}' (Force)", actionname, self.__item.id(), '-')
                     self.__item('-', caller=StateEngineDefaults.plugin_identification)
-            elif self.__item._type == 'num':
+            elif self.__item.property.type == 'num':
                 if value != 0:
                     self._log_debug("{0}: Set '{1}' to '{2}' (Force)", actionname, self.__item.id(), 0)
                     self.__item(0, caller=StateEngineDefaults.plugin_identification)
@@ -426,7 +426,7 @@ class SeActionForceItem(SeActionBase):
                     self._log_debug("{0}: Set '{1}' to '{2}' (Force)", actionname, self.__item.id(), 1)
                     self.__item(1, caller=StateEngineDefaults.plugin_identification)
             else:
-                self._log_warning("{0}: Force not implemented for item type '{1}'", actionname, self.__item._type)
+                self._log_warning("{0}: Force not implemented for item type '{1}'", actionname, self.__item.property.type)
         else:
             self._log_debug("{0}: New value differs from old value, no force required.", actionname)
 
