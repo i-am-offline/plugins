@@ -81,9 +81,9 @@ class StateEngine(SmartPlugin):
     # Parse an item
     def parse_item(self, item):
         if "se_manual_include" in item.conf or "se_manual_exclude" in item.conf:
-            item._eval = "sh.stateengine_plugin_functions.manual_item_update_eval('" + item.id() + "', caller, source)"
+            item.property.eval = "sh.stateengine_plugin_functions.manual_item_update_eval('" + item.id() + "', caller, source)"
         elif "se_manual_invert" in item.conf:
-            item._eval = "not sh." + item.id() + "()"
+            item.property.eval = "not sh." + item.id() + "()"
 
         return None
 

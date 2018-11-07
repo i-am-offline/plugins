@@ -246,11 +246,11 @@ class SeItem:
     # Check item settings and update if required
     def __check_item_config(self):
         # set "enforce updates" for item
-        self.__item._enforce_updates = True
+        self.__item.property.enforce_updates = True
 
         # set "eval" for item if initial
-        if self.__item._trigger and self.__item._eval is None:
-            self.__item._eval = "1"
+        if self.__item.property.trigger and self.__item.property.eval is None:
+            self.__item.property.eval = "1"
 
         # Check scheduler settings and update if requred
         job = self.__sh.scheduler._scheduler.get(self.id)
@@ -288,11 +288,11 @@ class SeItem:
 
     # get triggers in readable format
     def __verbose_triggers(self):
-        if not self.__item._trigger:
+        if not self.__item.property.trigger:
             return "Inactive"
 
         triggers = ""
-        for trigger in self.__item._trigger:
+        for trigger in self.__item.property.trigger:
             if triggers != "":
                 triggers += ", "
             triggers += trigger
